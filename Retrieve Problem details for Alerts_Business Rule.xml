@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2020-02-21 01:15:16">
+<sys_script action="INSERT_OR_UPDATE">
+<abort_action>false</abort_action>
+<access>package_private</access>
+<action_delete>false</action_delete>
+<action_insert>true</action_insert>
+<action_query>false</action_query>
+<action_update>true</action_update>
+<active>true</active>
+<add_message>false</add_message>
+<advanced>true</advanced>
+<change_fields>false</change_fields>
+<client_callable>false</client_callable>
+<collection>em_alert</collection>
+<condition/>
+<description/>
+<execute_function>false</execute_function>
+<filter_condition table="em_alert">source=DYNATRACE^EQ<item goto="false" or="false" field="source" endquery="false" value="DYNATRACE" operator="=" newquery="false"/>
+<item goto="false" or="false" field="" endquery="true" value="" operator="=" newquery="false"/>
+</filter_condition>
+<is_rest>false</is_rest>
+<message/>
+<name>Retrieve Problem details for DT</name>
+<order>100</order>
+<priority>100</priority>
+<rest_method display_value=""/>
+<rest_method_text/>
+<rest_service display_value=""/>
+<rest_service_text/>
+<rest_variables/>
+<role_conditions/>
+<script><![CDATA[//For instance on New York version and above
+(function executeRule(current, previous /*null when async*/) {
+
+	var problem_details =[];
+	// Add your code here
+	var prob_id = parseProblemId(current);	
+    problem_details = getProblemDetails(problem_details,prob_id);	
+	var prob_url = problem_details[0];
+	var incident_id = problem_details[1];
+	current.sn_source_event_id = prob_url;
+	//current.work_notes = prob_url;
+	current.incident.setDisplayValue(incident_id);
+})(current, previous);
+
+function parseProblemId(current){
+	var obj = JSON.parse(current.additional_info);
+	var problemid = obj.problem_id;
+	return problemid;
+}
+
+function getProblemDetails(problem_det,problemids){
+	var gr = new GlideRecord('x_dynat_ruxit_problems');
+	gr.addQuery('problem_id',problemids);
+	gr.query();
+	if(gr.next()){
+		var problem_url = gr.getValue('problem_url');
+		problem_det.push(problem_url);
+		var incident_id = gr.getDisplayValue('sys_target_sys_id');
+		var incnum = trim(incident_id.slice(10));
+		problem_det.push(incnum);		
+	}
+	return problem_det;
+}]]></script>
+<sys_class_name>sys_script</sys_class_name>
+<sys_created_by>jairam</sys_created_by>
+<sys_created_on>2020-01-22 23:44:24</sys_created_on>
+<sys_domain>global</sys_domain>
+<sys_domain_path>/</sys_domain_path>
+<sys_id>8420704ddbe2405c88a33ebd7c961959</sys_id>
+<sys_mod_count>34</sys_mod_count>
+<sys_name>Retrieve Problem details for DT</sys_name>
+<sys_overrides display_value=""/>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sys_script_8420704ddbe2405c88a33ebd7c961959</sys_update_name>
+<sys_updated_by>jairam</sys_updated_by>
+<sys_updated_on>2020-02-21 01:14:01</sys_updated_on>
+<template/>
+<when>before</when>
+</sys_script>
+</unload>
