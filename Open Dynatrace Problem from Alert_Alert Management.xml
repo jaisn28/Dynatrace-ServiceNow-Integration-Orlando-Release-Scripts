@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2020-02-21 01:08:57">
+<em_alert_management_rule action="INSERT_OR_UPDATE">
+<active>true</active>
+<additional_info/>
+<alert_filter table="em_alert">source=DYNATRACE<item goto="false" or="false" field="source" endquery="false" value="DYNATRACE" operator="=" newquery="false"/>
+</alert_filter>
+<automatic_execution_setting>2</automatic_execution_setting>
+<description>Open the Dynatrace Problem URL </description>
+<error_msg/>
+<incident_template display_value=""/>
+<kb display_value=""/>
+<migrated_from display_value=""/>
+<multiple_alert_rules>1</multiple_alert_rules>
+<name>Open DT Problem URL</name>
+<order>100</order>
+<overwrite_template display_value=""/>
+<state>3</state>
+<submit_counter>19</submit_counter>
+<sys_class_name>em_alert_management_rule</sys_class_name>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2018-02-25 14:33:36</sys_created_on>
+<sys_domain>global</sys_domain>
+<sys_id>b98fd2fcf3601300fba998d075612bd6</sys_id>
+<sys_mod_count>21</sys_mod_count>
+<sys_name>Open DT Problem URL</sys_name>
+<sys_overrides display_value=""/>
+<sys_package display_value="Event Management" source="com.glideapp.itom.snac">a0494200db2233003b9f3ebd7c961907</sys_package>
+<sys_policy/>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>em_alert_management_rule_b98fd2fcf3601300fba998d075612bd6</sys_update_name>
+<sys_updated_by>jairam</sys_updated_by>
+<sys_updated_on>2020-01-23 13:19:23</sys_updated_on>
+<type>incident</type>
+</em_alert_management_rule>
+</unload>
